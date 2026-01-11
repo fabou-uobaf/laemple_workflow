@@ -67,37 +67,20 @@ This project consist of two separate installation layers:
 
 The pipeline is designed to be modular: new tools can be added without modifiying the core workflow.
 
-
 ## Overall pipeline installation
 
 1. **Clone the Repository**
 2. **Install Snakemake** using `conda`
     ```
-    conda install snakemake
+    conda env create -f envs/snakemake.yaml
     ```
-3. **Download additional reference set**
-    ```
-    git remote add con-seq https://github.com/corneliusroemer/pango-sequences.git
-    git fetch con-seq
-    git subtree add --prefix reference/consensus_sequences con-seq main --squash
-    ```
-5. **Download first tool for testing**
-    ```
-    git remote add vaquero https://github.com/fabou-uobaf/VaQuERo.git
-    git fetch vaquero
-    git subtree add --prefix bin/vaquero_v24d9211 vaquero 24d921152d6c275d6b2611457f390efbec16d2c1 --squash
-    ```
-4. **Configuration**
+3. **Configuration**
     All pipeline parameters are defined in `config/worfklow_config.yaml`. 
     This file controls datasets, simulation parameters, seeds, enabled tools and reporting behavior. No code changes are required to modify experimental setups. 
 
-## Tool-specific installation
-
-Each lineage deconvolution tool is installed independently and integrated into the pipeline in a standardized way. Freyja will be installed 
-
 ## Minimal Example
 
-The default workflow is configured to include a minimal example of the complete workflow which includes only tools Freyja and VaQuERo. It can be started by activating by:
+The default workflow is configured to include a minimal example of the complete workflow which includes only tools Freyja (https://anaconda.org/channels/bioconda/packages/freyja/overview) and VaQuERo (https://github.com/fabou-uobaf/VaQuERo.git) and uses additional reference sequences from https://github.com/corneliusroemer/pango-sequences.git as well as SWAMPy for simulation of sequence data from wastewater samples (https://github.com/goldman-gp-ebi/SWAMPy). It can be started by activating by:
     
     ```
     conda activate snakemake
@@ -105,6 +88,12 @@ The default workflow is configured to include a minimal example of the complete 
     ```
 
 It should end with 6 new experiments with each having three result files in the resultfolder: `freyja_v2.0.0_summary.csv`, `vaquero_v24d9211_summary.csv` and `vaquero_v24d9211_summary.csv`. Final Report can be rendered using `PostPredict_plots_all.Rmd`
+
+It is recommended to update reference sequences when working with newer data.
+
+## Tool-specific installation
+
+Each lineage deconvolution tool is installed independently and integrated into the pipeline in a standardized way. Freyja will be installed 
 
 ### General rules for adding a new tool
 
@@ -242,16 +231,16 @@ snakemake --snakefile rules/simulation.smk \
           -c20 --use-conda --rerun-incomplete --rerun-triggers mtime
 
 snakemake --snakefile variantCalling.smk \
-          -c3 --use-conda
+          -c20 --use-conda
 
 snakemake --snakefile lineage_deconvolution.smk \
-          -c3 --use-conda --keep-going --rerun-incomplete --rerun-triggers mtime
+          -c20 --use-conda --keep-going --rerun-incomplete --rerun-triggers mtime
 
 ```
 - `--use-conda` ensures reproducible environents
 - `--rerun-incomplete`restarts failed or interrupted jobs
 - `--keep-going`continues independent jobs if one fails.
-- `-c` describes number of cores to be used by each worfklow, default: 20/3
+- `-c` describes number of cores to be used by each worfklow, default: 20
 
 ## Analyze Results
 
