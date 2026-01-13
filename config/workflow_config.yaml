@@ -72,3 +72,9 @@ TOOLS:
     INCLUDE_IN_ANALYSIS: true
     TOOL_LABEL: VaQuERo v24d9211
     TOOL_NAME: vaquero_v24d9211
+  VAQUERO_02:
+    COLOUR_IN_REPORT: '#8cc67d'
+    DESCRIPTION: current github version with old reference set
+    INCLUDE_IN_ANALYSIS: false
+    TOOL_LABEL: 'VaQuERo v24d9211 oldRef'
+    TOOL_NAME: vaquero_v24d9211_oldREF
