@@ -1,5 +1,0 @@
-.snakemake/
-build/
-*fasta
-.vscode/
-cron.log

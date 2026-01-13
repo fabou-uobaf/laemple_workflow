@@ -1,4 +1,0 @@
-Bat-RaTG13 1
-MERS-CoV 1
-SARS-CoV 1
-SARS-CoV-2 8
