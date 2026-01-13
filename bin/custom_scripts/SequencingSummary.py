@@ -51,7 +51,7 @@ variant_list = []
 
 for file in args.abundances_files:
     df = pd.read_csv(file, sep='\t', header=None, names=["lineage", "abundance"])
-    
+
     # check if abundance is 0-100 or 0-1
     if df['abundance'].sum() == 100.0: 
         df['abundance'] = df['abundance'] / 100
@@ -71,11 +71,12 @@ for file in args.abundances_files:
 for col in sim_df.columns:
     if col != "timepoint":
         sim_df[col] = sim_df[col].astype(float)
-        if not args.real_timecourse:
-            sim_df[col] = sim_df[col] / 100
 
 sim_df.replace(0.00, np.nan, inplace=True)
 sim_df = sim_df.merge(meta_df, on ="timepoint")
+
+# filter dataframe
+sim_df= func.filter_dataframe(sim_df, args.lineage_min_threshold, "simulation")
 
 # # get sequencing quality parameter
 sim_df["coverage_avg"] = np.nan
@@ -115,9 +116,6 @@ for index, row in sim_df.iterrows():
                     sim_df.loc[index, "MAPQ_avg"] = first_line.split("=")[1].strip()
                     break
             break
-
-# filter dataframe
-sim_df= func.filter_dataframe(sim_df, args.lineage_min_threshold, "simulation")
 
 # write output file
 sim_df.to_csv(args.output_file, index=False)
