@@ -91,27 +91,30 @@ cd Laemple_workflow/
 ```
 
 #### Install Snakemake using `conda`
-    ```
-    conda env create -f envs/snakemake.yaml
-    ```
+
+```
+conda env create -f envs/snakemake.yaml
+```
+
 #### Configuration
-    All pipeline parameters are defined in `config/worfklow_config.yaml`. 
+All pipeline parameters are defined in `config/worfklow_config.yaml`. 
 This file controls datasets, simulation parameters, seeds, enabled tools and reporting behavior. 
 No code changes are required to modify experimental setups.
-The base version of Læmple comes with two configuration files 
+The base version of Læmple comes with two configuration files: 
 
 a. **workflow_config.yaml:** a minimal example running out of the box (see below)
+
 b. **workflow_config_manuscript.yaml:** the config files for the analysis as presented in the manuscript. For this analysis to run, individual tools which are considered in the analysis need to be installed in `./bin`.
 
 ## Running the Minimal Example
 
 For demonstration purpose, the default workflow is configured to include a minimal example of the complete workflow which includes only tools Freyja (https://anaconda.org/channels/bioconda/packages/freyja/overview) and VaQuERo (https://github.com/fabou-uobaf/VaQuERo.git) and uses additional reference sequences from https://github.com/corneliusroemer/pango-sequences.git as well as SWAMPy for simulation of sequence data from wastewater samples (https://github.com/goldman-gp-ebi/SWAMPy). It can be started by activating by:
     
-    ```
-    conda activate snakemake
-    python main.py
+```
+conda activate snakemake
+python main.py
 Rscript -e "rmarkdown::render('PostPredict_report.Rmd')"
-    ```
+```
 
 It should end with 6 new simulated experiments with each having two result files in the respective result folders: `freyja_v2.0.0_summary.csv`, and `vaquero_v24d9211_summary.csv`. Final Report can be rendered using `PostPredict_report.Rmd`
 
@@ -138,6 +141,7 @@ Follow the official installation instruction of the tools (e.g. GitHub README, d
 Create a conda yaml file named:  `envs/TOOLNAME.yaml`, which contains the tool (if applicable), all it dependencies and any required Python/R packages.
 
 Example:
+
 ```
 name: TOOLNAME
 channels:
@@ -159,9 +163,9 @@ Each tool needs its own subworfklow directory:
 
 ```
 rules/subworkflow_TOOLNAME/
-├── Snakefile.smk
-├── common.smk
-└── prepareSummary.py
+    ├── Snakefile.smk
+    ├── common.smk
+    └── prepareSummary.py
 ```
 
 #### Snakefile.smk
@@ -212,6 +216,7 @@ TOOLS:
     TOOL_NAME: toolname
     TOOL_LABEL: "ToolName version add.info"
 ```
+
 **Configuration Fields**
 - `COLOUR_IN_REPORT` Color used in plots and reports
 - `INCLUDE_IN_ANALYSIS` Whether the tool is included in benchmarking
@@ -265,8 +270,8 @@ snakemake --snakefile variantCalling.smk \
 
 snakemake --snakefile lineage_deconvolution.smk \
           -c20 --use-conda --keep-going --rerun-incomplete --rerun-triggers mtime
-
 ```
+
 - `--use-conda` ensures reproducible environments
 - `--rerun-incomplete`restarts failed or interrupted jobs
 - `--keep-going`continues independent jobs if one fails.
