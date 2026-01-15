@@ -1,8 +1,8 @@
 APP:
-  SEED: 152
+  SEED: 1
 CORES_AVAILABLE: 20
 CURRENT_SET: SET_01
-EXPERIMENT_NAME: Ex03_02_minimal_example
+EXPERIMENT_NAME: Ex01_01_minimal_example
 POSTPRED:
   LABELS:
   - key: minimal_example
@@ -62,18 +62,18 @@ SIMULATION:
   SEQ_SYS: MSv3
 TOOLS:
   FREYJA_01:
-    COLOUR_IN_REPORT: '#c1faff'
+    COLOUR_IN_REPORT: '#65A479FF'
     INCLUDE_IN_ANALYSIS: true
     TOOL_LABEL: Freyja v.2.0.0
     TOOL_NAME: freyja_v2.0.0
   VAQUERO_01:
-    COLOUR_IN_REPORT: '#4d9e6f'
+    COLOUR_IN_REPORT: '#5D8CA8FF'
     DESCRIPTION: current github version
     INCLUDE_IN_ANALYSIS: true
     TOOL_LABEL: VaQuERo v24d9211
     TOOL_NAME: vaquero_v24d9211
   VAQUERO_02:
-    COLOUR_IN_REPORT: '#8cc67d'
+    COLOUR_IN_REPORT: '#D3BA68FF'
     DESCRIPTION: current github version with old reference set
     INCLUDE_IN_ANALYSIS: false
     TOOL_LABEL: 'VaQuERo v24d9211 oldRef'
