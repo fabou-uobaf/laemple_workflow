@@ -66,7 +66,7 @@ Additional folders that will be created after workflow completion:
     ├── EXPERIMENT NAME 2               
     │   ├── ...
     |   ┊
-    ├── EXPERIMENT NAME 2               
+    ├── EXPERIMENT NAME 3               
     │   ├── ...
     |   ┊
     └── ...
@@ -267,7 +267,7 @@ snakemake --snakefile lineage_deconvolution.smk \
           -c20 --use-conda --keep-going --rerun-incomplete --rerun-triggers mtime
 
 ```
-- `--use-conda` ensures reproducible environents
+- `--use-conda` ensures reproducible environments
 - `--rerun-incomplete`restarts failed or interrupted jobs
 - `--keep-going`continues independent jobs if one fails.
 - `-c` describes number of cores to be used by each worfklow, default: 20
@@ -292,7 +292,7 @@ Rscript -e "rmarkdown::render('PostPredict_report.Rmd')"
 
 # Trouble shooting
 
-* In case the individual conda environments can not be initiation 
+* In case the individual conda environments can not be initiated 
    * make sure that the minimal version requirements for Snakemake (version ≥9.5.1) make and conda (version ≥24.7.1) are met.
    * disable the channel priority configuration for conda by specifying `conda config --set channel_priority disabled`
 * In case you experience issues with the PostPredict_report.Rmd script, make sure that all required R packages are installed. Most conveniently, this can be done by open the script in Rstudio and allow Rstudio to make the required installations.
