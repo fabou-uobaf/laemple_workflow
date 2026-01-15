@@ -66,7 +66,7 @@ Additional folders that will be created after workflow completion:
     ├── EXPERIMENT NAME 2               
     │   ├── ...
     |   ┊
-    ├── EXPERIMENT NAME 2               
+    ├── EXPERIMENT NAME 3               
     │   ├── ...
     |   ┊
     └── ...
@@ -96,13 +96,15 @@ cd Laemple_workflow/
 conda env create -f envs/snakemake.yaml
 ```
     
+
 #### Configuration
-    All pipeline parameters are defined in `config/worfklow_config.yaml`. 
+All pipeline parameters are defined in `config/worfklow_config.yaml`. 
 This file controls datasets, simulation parameters, seeds, enabled tools and reporting behavior. 
 No code changes are required to modify experimental setups.
-The base version of Læmple comes with two configuration files 
+The base version of Læmple comes with two configuration files: 
 
 a. **workflow_config.yaml:** a minimal example running out of the box (see below)
+
 b. **workflow_config_manuscript.yaml:** the config files for the analysis as presented in the manuscript. For this analysis to run, individual tools which are considered in the analysis need to be installed in `./bin`.
 
 ## Running the Minimal Example
@@ -140,6 +142,7 @@ Follow the official installation instruction of the tools (e.g. GitHub README, d
 Create a conda yaml file named:  `envs/TOOLNAME.yaml`, which contains the tool (if applicable), all it dependencies and any required Python/R packages.
 
 Example:
+
 ```
 name: TOOLNAME
 channels:
@@ -161,9 +164,9 @@ Each tool needs its own subworfklow directory:
 
 ```
 rules/subworkflow_TOOLNAME/
-├── Snakefile.smk
-├── common.smk
-└── prepareSummary.py
+    ├── Snakefile.smk
+    ├── common.smk
+    └── prepareSummary.py
 ```
 
 #### Snakefile.smk
@@ -214,6 +217,7 @@ TOOLS:
     TOOL_NAME: toolname
     TOOL_LABEL: "ToolName version add.info"
 ```
+
 **Configuration Fields**
 - `COLOUR_IN_REPORT` Color used in plots and reports
 - `INCLUDE_IN_ANALYSIS` Whether the tool is included in benchmarking
@@ -267,9 +271,9 @@ snakemake --snakefile variantCalling.smk \
 
 snakemake --snakefile lineage_deconvolution.smk \
           -c20 --use-conda --keep-going --rerun-incomplete --rerun-triggers mtime
-
 ```
-- `--use-conda` ensures reproducible environents
+
+- `--use-conda` ensures reproducible environments
 - `--rerun-incomplete`restarts failed or interrupted jobs
 - `--keep-going`continues independent jobs if one fails.
 - `-c` describes number of cores to be used by each worfklow, default: 20
@@ -294,7 +298,7 @@ Rscript -e "rmarkdown::render('PostPredict_report.Rmd')"
 
 # Trouble shooting
 
-* In case the individual conda environments can not be initiation 
+* In case the individual conda environments can not be initiated 
    * make sure that the minimal version requirements for Snakemake (version ≥9.5.1) make and conda (version ≥24.7.1) are met.
    * disable the channel priority configuration for conda by specifying `conda config --set channel_priority disabled`
 * In case you experience issues with the PostPredict_report.Rmd script, make sure that all required R packages are installed. Most conveniently, this can be done by open the script in Rstudio and allow Rstudio to make the required installations.
